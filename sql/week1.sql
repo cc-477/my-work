@@ -20,7 +20,7 @@ select title,salary_min from job,company where job.company_id=company.id and cit
 
 
 -- 第 4 题：每个城市分别有多少个岗位（城市名 + 数量 cnt）
-select city,count(title) from  job,company where job.company_id=company.id group by city;
+select city,count(title) cnt from  job,company where job.company_id=company.id group by city;
 
 
 -- 第 5 题：每个岗位的名称、公司名、公司所在城市（三列，12 行）
