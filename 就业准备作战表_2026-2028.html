@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字经济就业作战表 · 2026-2028</title>
+<style>
+  :root{
+    --ink:#1b1b1a;
+    --ink-2:#4a4a47;
+    --ink-3:#7c7c78;
+    --line:#e2e0da;
+    --bg:#f7f6f2;
+    --card:#ffffff;
+    --accent:#1f4e5f;
+    --accent-soft:#eaf1f3;
+    --warn:#b04a2f;
+    --warn-soft:#f9ede9;
+    --ok:#3f6b4a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    font-size:15px;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:48px 28px 80px;}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:28px;margin-bottom:40px;}
+  .kicker{font-size:12px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px;}
+  h1{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.3;margin-bottom:10px;}
+  .sub{font-size:14px;color:var(--ink-2);}
+  .countdown{display:flex;align-items:baseline;gap:12px;margin-top:26px;}
+  .countdown .num{font-size:56px;font-weight:600;letter-spacing:-.04em;color:var(--warn);line-height:1;}
+  .countdown .label{font-size:13px;color:var(--ink-2);line-height:1.5;}
+
+  .targets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px;}
+  .target{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;}
+  .target .tag{font-size:11px;letter-spacing:.1em;color:var(--ink-3);margin-bottom:8px;}
+  .target .tag.main{color:var(--warn);}
+  .target h3{font-size:15px;font-weight:600;margin-bottom:6px;}
+  .target p{font-size:13px;color:var(--ink-2);line-height:1.6;}
+
+  h2{font-size:19px;font-weight:600;letter-spacing:-.01em;margin:56px 0 8px;padding-top:8px;}
+  h2 .idx{color:var(--ink-3);font-weight:400;margin-right:10px;}
+  .h2-sub{font-size:13px;color:var(--ink-3);margin-bottom:24px;}
+
+  .phase{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+  .phase-head{display:flex;align-items:flex-start;gap:18px;padding:20px 24px 16px;border-bottom:1px solid var(--line);}
+  .phase-key{flex:0 0 auto;width:96px;}
+  .phase-key .when{font-size:12px;color:var(--ink-3);line-height:1.5;}
+  .phase-key .load{margin-top:8px;display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;background:var(--accent-soft);color:var(--accent);}
+  .phase-key .load.hot{background:var(--warn-soft);color:var(--warn);}
+  .phase-title{flex:1;}
+  .phase-title h3{font-size:17px;font-weight:600;margin-bottom:4px;}
+  .phase-title .goal{font-size:13px;color:var(--ink-2);}
+  .phase-body{padding:16px 24px 20px;}
+  .phase-body ul{list-style:none;}
+  .phase-body li{position:relative;padding-left:18px;font-size:14px;color:var(--ink-2);margin-bottom:7px;}
+  .phase-body li:before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--ink-3);}
+  .verify{margin-top:14px;padding:12px 16px;background:var(--accent-soft);border-radius:8px;font-size:13px;color:var(--accent);}
+  .verify b{font-weight:600;}
+  .verify.bad{background:var(--warn-soft);color:var(--warn);}
+
+  .now{border:2px solid var(--warn);}
+  .now .phase-head{background:var(--warn-soft);border-bottom-color:var(--warn);}
+  .now .phase-title h3{color:var(--warn);}
+
+  .checklist{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 24px 20px;}
+  .week-block{padding:16px 0;border-bottom:1px dashed var(--line);}
+  .week-block:last-child{border-bottom:none;}
+  .week-label{font-size:12px;color:var(--ink-3);letter-spacing:.08em;margin-bottom:10px;}
+  .item{display:flex;align-items:flex-start;gap:10px;padding:5px 0;cursor:pointer;font-size:14px;color:var(--ink-2);}
+  .item input{appearance:none;-webkit-appearance:none;flex:0 0 auto;width:16px;height:16px;margin-top:4px;border:1.5px solid var(--ink-3);border-radius:4px;cursor:pointer;position:relative;background:transparent;}
+  .item input:checked{background:var(--ok);border-color:var(--ok);}
+  .item input:checked:after{content:"";position:absolute;left:4.5px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+  .item input:checked ~ span{color:var(--ink-3);text-decoration:line-through;}
+  .item span{flex:1;}
+  .item .time{flex:0 0 auto;font-size:11px;color:var(--ink-3);background:var(--bg);padding:1px 7px;border-radius:4px;margin-top:2px;}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px;}
+  th,td{text-align:left;padding:11px 18px;border-bottom:1px solid var(--line);}
+  th{font-size:12px;font-weight:500;color:var(--ink-3);background:var(--bg);letter-spacing:.05em;}
+  tr:last-child td{border-bottom:none;}
+  td:first-child{font-weight:500;color:var(--ink);white-space:nowrap;}
+
+  .tools{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .toolbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;}
+  .toolbox h4{font-size:13px;font-weight:600;margin-bottom:10px;color:var(--accent);}
+  .toolbox p{font-size:13px;color:var(--ink-2);line-height:1.8;}
+  .toolbox code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--bg);padding:1px 5px;border-radius:3px;}
+
+  .rules{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 24px;}
+  .rule{padding:16px 0;border-bottom:1px dashed var(--line);display:flex;gap:16px;}
+  .rule:last-child{border-bottom:none;}
+  .rule .n{flex:0 0 auto;font-size:12px;color:#fff;background:var(--ink);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+  .rule p{font-size:14px;color:var(--ink-2);}
+  .rule b{color:var(--ink);}
+
+  footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);}
+
+  @media (max-width:720px){
+    .targets,.tools{grid-template-columns:1fr;}
+    .phase-head{flex-direction:column;gap:10px;}
+    .phase-key{width:auto;}
+    h1{font-size:24px;}
+    .countdown .num{font-size:44px;}
+    .wrap{padding:32px 18px 60px;}
+  }
+  @media print{
+    body{background:#fff;font-size:11pt;}
+    .wrap{max-width:none;padding:0;}
+    .phase,.checklist,.toolbox,table,.rules{break-inside:avoid;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Action Plan / 2026.11 — 2028.06</div>
+  <h1>数字经济就业作战表</h1>
+  <div class="sub">河南财政金融学院 · 2028 届 · 不考研 · 目标岗位：河南本地 AI 应用 / 数据类岗位，银行国企兜底</div>
+  <div class="countdown">
+    <div class="num" id="days">—</div>
+    <div class="label">天后秋招正式开网申<br>2027 年 9 月 1 日 · 剩余可准备时间</div>
+  </div>
+</header>
+
+<div class="targets">
+  <div class="target">
+    <div class="tag main">主攻 · 60% 精力</div>
+    <h3>本地 AI 应用与数据岗</h3>
+    <p>AI 解决方案专员、数据分析师（AI 方向）。郑州在招 8–15K，本科可投，看作品不看学历。</p>
+  </div>
+  <div class="target">
+    <div class="tag">副攻 · 30% 精力</div>
+    <h3>银行与国企数字化</h3>
+    <p>中原银行分行岗、河南农商行系统、省属国企信息中心。本科不限专业，看笔试与稳定性。</p>
+  </div>
+  <div class="target">
+    <div class="tag">兜底 · 10% 精力</div>
+    <h3>考公 / 事业单位</h3>
+    <p>数字政府、数据资源管理方向。行测与银行笔试高度重合，一套备考两头用。</p>
+  </div>
+</div>
+
+<h2><span class="idx">01</span>五个阶段</h2>
+<div class="h2-sub">每个阶段只有一个核心产出。做完再进下一阶段，不要并行。</div>
+
+<div class="phase now">
+  <div class="phase-head">
+    <div class="phase-key">
+      <div class="when">2026.11.25<br>— 2027.1.15</div>
+      <div class="load hot">每周 10h</div>
+    </div>
+    <div class="phase-title">
+      <h3>阶段一 · 把工具装到手上</h3>
+      <div class="goal">不追求学会，追求能跑通。期末周以不挂科为准。</div>
+    </div>
+  </div>
+  <div class="phase-body">
+    <ul>
+      <li>装好环境：Python（Miniconda）、Cursor、注册一个大模型 API 账号</li>
+      <li>SQL 刷到能用：牛客 SQL 篇前 50 题，重点是 join、group by、窗口函数</li>
+      <li>pandas 四件套：读文件、清洗、groupby 透视、出一张图</li>
+      <li>跑通第一个大模型调用脚本，理解 token、上下文、成本</li>
+      <li>确定作品一选题（河南省数字经济政策助手），摸清数据源在哪</li>
+    </ul>
+    <div class="verify"><b>验收：</b>在自己电脑上跑通「读 CSV → 清洗 → 出图 → 调模型总结」一条完整脚本。</div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-key">
+      <div class="when">2027.1.16<br>— 2027.2.28</div>
+      <div class="load hot">每天 4h</div>
+    </div>
+    <div class="phase-title">
+      <h3>阶段二 · 寒假做出第一个作品（最关键）</h3>
+      <div class="goal">这 6 周决定你秋招是被动还是主动。没有第二个这样的整块时间。</div>
+    </div>
+  </div>
+  <div class="phase-body">
+    <ul>
+      <li>爬取河南省及郑州的数字经济政策、规划、扶持办法，整理成文档库</li>
+      <li>搭 RAG 全链路：切分 → 向量化 → 检索 → 重排 → 生成</li>
+      <li>用 Streamlit 做界面，部署到免费公网，拿到可访问链接</li>
+      <li>建 GitHub 仓库，写清楚 README：解决什么问题、怎么用、效果如何</li>
+      <li>做一份简单的评测：30 条问题 + 正确答案，记录准确率</li>
+    </ul>
+    <div class="verify"><b>验收：</b>发链接给 3 个同学，他们不用你讲解就能自己问出正确答案。</div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-key">
+      <div class="when">2027.3.1<br>— 2027.6.30</div>
+      <div class="load">每周 12h</div>
+    </div>
+    <div class="phase-title">
+      <h3>阶段三 · 第二个作品 + 拿下暑期实习</h3>
+      <div class="goal">暑期实习转正是最省力的上岸路径，必须在大三下拿到。</div>
+    </div>
+  </div>
+  <div class="phase-body">
+    <ul>
+      <li>3 月：做作品二 —— 郑州 AI 岗位市场分析报告（爬 JD，做技能词频与薪资分布）</li>
+      <li>3 月中：简历定稿，作品链接放第一行，投 30 家以上郑州 / 河南本地企业</li>
+      <li>4—5 月：面试。每场面试后当天记录被问倒的问题，一周内补上</li>
+      <li>5—6 月：期末保底 + 等实习 offer，同时准备银行提前批材料</li>
+      <li>四级没过的话，这学期必须考过，这是银行网申的硬门槛</li>
+    </ul>
+    <div class="verify"><b>验收：</b>手上有至少一个郑州本地暑期实习 offer，且能说出这家公司做什么业务。</div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-key">
+      <div class="when">2027.7.1<br>— 2027.8.31</div>
+      <div class="load">全职</div>
+    </div>
+    <div class="phase-title">
+      <h3>阶段四 · 实习，目标是转正</h3>
+      <div class="goal">实习不是去学习的，是去攒可写进简历的真实项目。</div>
+    </div>
+  </div>
+  <div class="phase-body">
+    <ul>
+      <li>入职第一周就问清楚：转正标准是什么、有没有名额</li>
+      <li>主动接一个能被量化的活，比如把某个报表流程自动化，记录省了多少小时</li>
+      <li>每周写周报，离职前请 mentor 写一句推荐语</li>
+      <li>8 月中：中原银行、郑州银行提前批开始投，边实习边投，不要等</li>
+    </ul>
+    <div class="verify"><b>验收：</b>简历上多出一条「在某公司把 X 流程效率提升 Y%」的真实经历。</div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-key">
+      <div class="when">2027.9.1<br>— 2027.11.30</div>
+      <div class="load hot">全力</div>
+    </div>
+    <div class="phase-title">
+      <h3>阶段五 · 秋招主战场</h3>
+      <div class="goal">投递量决定结果。80 家是底线，120 家是正常水平。</div>
+    </div>
+  </div>
+  <div class="phase-body">
+    <ul>
+      <li>9 月：本地 AI 公司、国企数字化、银行分行同时开投，每周至少 20 家</li>
+      <li>10 月：银行统一笔试，行测 + 综合知识，与考公共用一套准备</li>
+      <li>11 月：面试密集期，同时准备结构化面试与专业面</li>
+      <li>12 月起进入补录，同时准备省考（数字政府方向岗位）</li>
+    </ul>
+    <div class="verify bad"><b>风险提示：</b>春招只剩零星补录，不要指望春招捡漏。9 月之前没准备好，这一轮就废了。</div>
+  </div>
+</div>
+
+<h2><span class="idx">02</span>未来 14 天：照着做，不用想</h2>
+<div class="h2-sub">这是唯一需要你现在就动手的部分。勾选会自动保存。</div>
+
+<div class="checklist">
+  <div class="week-block">
+    <div class="week-label">第 1 周 · 11.25 — 12.01　目标：环境跑通</div>
+    <label class="item"><input type="checkbox" data-k="d1"><span>装 Miniconda，建一个名为 work 的虚拟环境</span><span class="time">40min</span></label>
+    <label class="item"><input type="checkbox" data-k="d2"><span>装 Cursor 或 VS Code，配置好 Python 解释器</span><span class="time">30min</span></label>
+    <label class="item"><input type="checkbox" data-k="d3"><span>注册 DeepSeek 或智谱开放平台，充 50 元，拿到 API Key</span><span class="time">20min</span></label>
+    <label class="item"><input type="checkbox" data-k="d4"><span>写 30 行代码调通一次大模型，能打印出回答</span><span class="time">1h</span></label>
+    <label class="item"><input type="checkbox" data-k="d5"><span>牛客网注册，SQL 篇做完前 10 题</span><span class="time">2h</span></label>
+    <label class="item"><input type="checkbox" data-k="d6"><span>用 pandas 读一份真实 CSV，算出 3 个统计量</span><span class="time">2h</span></label>
+    <label class="item"><input type="checkbox" data-k="d7"><span>注册 GitHub，把上面两个脚本传上去</span><span class="time">30min</span></label>
+  </div>
+  <div class="week-block">
+    <div class="week-label">第 2 周 · 12.02 — 12.08　目标：选定作品</div>
+    <label class="item"><input type="checkbox" data-k="e1"><span>牛客 SQL 刷到 30 题，重点搞懂窗口函数</span><span class="time">3h</span></label>
+    <label class="item"><input type="checkbox" data-k="e2"><span>找 10 份河南省数字经济相关政策文件，存成 txt 或 PDF</span><span class="time">2h</span></label>
+    <label class="item"><input type="checkbox" data-k="e3"><span>跑通一个最简 RAG demo：把文件丢进去，能问答</span><span class="time">4h</span></label>
+    <label class="item"><input type="checkbox" data-k="e4"><span>写 300 字作品说明：解决谁的什么问题，为什么值得做</span><span class="time">40min</span></label>
+    <label class="item"><input type="checkbox" data-k="e5"><span>确认四级成绩，没过就报 12 月考试</span><span class="time">20min</span></label>
+  </div>
+</div>
+
+<h2><span class="idx">03</span>每周固定节奏</h2>
+<div class="h2-sub">不靠意志力，靠固定时段。学期内每周 10–12 小时就够，寒假再加速。</div>
+
+<table>
+  <tr><th>时间</th><th>时长</th><th>做什么</th></tr>
+  <tr><td>周一至周五 晚上</td><td>1 小时</td><td>刷 SQL 题，或看一节教程。只做一件，不开新坑</td></tr>
+  <tr><td>周六 上午</td><td>3 小时</td><td>主攻作品。这是唯一写代码的整块时间，手机放远</td></tr>
+  <tr><td>周日 下午</td><td>2 小时</td><td>复盘：这周卡在哪、下周改什么，写 200 字记录</td></tr>
+  <tr><td>寒假</td><td>每天 4 小时</td><td>上午写代码，下午调 bug 与看文档，晚上不碰</td></tr>
+</table>
+
+<h2><span class="idx">04</span>工具箱</h2>
+<div class="h2-sub">全部免费或极低成本。总预算控制在 200 元以内。</div>
+
+<div class="tools">
+  <div class="toolbox">
+    <h4>学 SQL 与 Python</h4>
+    <p>牛客网 SQL 篇（免费刷题）、LeetCode 数据库、Kaggle Learn 的 Pandas 微课（2 小时能过完）。不要买课，不要看长视频教程。</p>
+  </div>
+  <div class="toolbox">
+    <h4>搭 RAG</h4>
+    <p><code>LangChain</code> 或 <code>LlamaIndex</code> 官方文档、<code>Chroma</code> 做向量库（本地跑，零成本）、<code>Streamlit</code> 做界面。</p>
+  </div>
+  <div class="toolbox">
+    <h4>模型接口</h4>
+    <p><code>DeepSeek</code>（便宜，适合练手）、<code>智谱 GLM-4-Flash</code>（有免费额度）。做完三个作品大概花 30–60 元。</p>
+  </div>
+  <div class="toolbox">
+    <h4>部署与展示</h4>
+    <p><code>Streamlit Community Cloud</code> 免费部署、<code>GitHub</code> 放代码。链接就是你的简历第一行。</p>
+  </div>
+</div>
+
+<h2><span class="idx">05</span>五条铁律</h2>
+
+<div class="rules">
+  <div class="rule"><div class="n">1</div><p><b>作品必须有链接。</b>本地的代码文件夹在面试官眼里等于不存在。能点开、别人能用，才算作品。</p></div>
+  <div class="rule"><div class="n">2</div><p><b>不考证。</b>初级会计、证券从业、期货从业对你主攻的岗位零价值。CDA 一级可考，准备别超过一周，且别指望它救场。</p></div>
+  <div class="rule"><div class="n">3</div><p><b>不做工具收藏家。</b>新模型每两个月出一个，追不完。把一个 RAG 做扎实，胜过试十个工具。</p></div>
+  <div class="rule"><div class="n">4</div><p><b>不碰算法训练。</b>PyTorch 调参、Spark 全家桶在你的赛道里是负收益，省下的时间全给作品和面试。</p></div>
+  <div class="rule"><div class="n">5</div><p><b>实习优先于绩点。</b>保证不挂科即可。大三下能拿到实习，比绩点从 3.4 提到 3.7 重要十倍。</p></div>
+</div>
+
+<footer>
+  制表日期 2026 年 11 月 25 日 · 目标：2027 年 9 月秋招拿到河南本地 AI 应用或数据类岗位 offer
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var target = new Date('2027-09-01T00:00:00+08:00');
+  var now = new Date();
+  var diff = Math.max(0, Math.ceil((target - now) / 86400000));
+  var el = document.getElementById('days');
+  if(el) el.textContent = diff;
+})();
+
+(function(){
+  var boxes = document.querySelectorAll('.item input[type=checkbox]');
+  boxes.forEach(function(b){
+    var key = 'plan_' + b.dataset.k;
+    try{ if(localStorage.getItem(key) === '1'){ b.checked = true; } }catch(e){}
+    b.addEventListener('change', function(){
+      try{ localStorage.setItem(key, b.checked ? '1' : '0'); }catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

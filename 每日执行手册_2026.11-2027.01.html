@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日执行手册 · 2026.11.25 — 2027.01.17</title>
+<style>
+  :root{
+    --ink:#1b1b1a;--ink-2:#4a4a47;--ink-3:#8a8a85;
+    --line:#e4e2dc;--bg:#f7f6f2;--card:#fff;
+    --accent:#1f4e5f;--accent-soft:#eaf1f3;
+    --warn:#b04a2f;--warn-soft:#f9ede9;
+    --ok:#3f6b4a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:44px 26px 100px;}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:32px;}
+  .kicker{font-size:11px;letter-spacing:.2em;color:var(--ink-3);margin-bottom:12px;}
+  h1{font-size:27px;font-weight:600;letter-spacing:-.02em;line-height:1.35;margin-bottom:8px;}
+  .sub{font-size:13px;color:var(--ink-2);}
+
+  .bar-wrap{margin-top:24px;}
+  .bar-top{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);margin-bottom:6px;}
+  .bar{height:6px;background:#e8e6e0;border-radius:3px;overflow:hidden;}
+  .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s;}
+
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px;font-size:12px;color:var(--ink-3);}
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block;}
+  .dot.core{background:var(--warn);}
+  .dot.weekend{background:var(--accent);}
+
+  h2{font-size:17px;font-weight:600;margin:52px 0 6px;display:flex;align-items:baseline;gap:10px;}
+  h2 .num{font-size:12px;color:var(--ink-3);font-weight:400;letter-spacing:.1em;}
+  .week-goal{font-size:13px;color:var(--ink-2);margin-bottom:18px;padding-left:2px;border-left:2px solid var(--line);padding-left:12px;}
+
+  .day{
+    background:var(--card);border:1px solid var(--line);border-radius:9px;
+    display:flex;gap:0;margin-bottom:8px;overflow:hidden;
+  }
+  .day.wkend{border-left:3px solid var(--accent);}
+  .d-left{
+    flex:0 0 78px;padding:13px 10px;text-align:center;
+    border-right:1px solid var(--line);background:#fcfbf9;
+  }
+  .d-num{font-size:14px;font-weight:600;display:block;letter-spacing:-.01em;}
+  .d-wk{font-size:11px;color:var(--ink-3);display:block;margin-top:1px;}
+  .d-body{flex:1;padding:13px 16px 14px;min-width:0;}
+  .d-task{display:flex;align-items:flex-start;gap:9px;font-size:14px;font-weight:500;line-height:1.55;}
+  .d-task input{
+    appearance:none;-webkit-appearance:none;flex:0 0 auto;width:15px;height:15px;margin-top:4px;
+    border:1.5px solid var(--ink-3);border-radius:4px;cursor:pointer;position:relative;background:transparent;
+  }
+  .d-task input:checked{background:var(--ok);border-color:var(--ok);}
+  .d-task input:checked:after{
+    content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .d-task input:checked ~ .t{color:var(--ink-3);text-decoration:line-through;}
+  .t{flex:1;}
+  .must{
+    display:inline-block;font-size:10px;color:#fff;background:var(--warn);
+    padding:1px 6px;border-radius:3px;margin-right:6px;vertical-align:1px;font-weight:500;letter-spacing:.05em;
+  }
+  .d-how{font-size:12.5px;color:var(--ink-2);margin-top:8px;padding-left:24px;line-height:1.75;}
+  .d-how b{color:var(--accent);font-weight:500;}
+  .d-how code{
+    font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:#f2f1ec;
+    padding:1px 5px;border-radius:3px;color:#3a3a37;
+  }
+  .d-time{flex:0 0 54px;padding:14px 8px;text-align:right;font-size:11px;color:var(--ink-3);}
+
+  .note{
+    background:var(--accent-soft);border-radius:9px;padding:16px 20px;font-size:13px;
+    color:var(--accent);line-height:1.8;margin:14px 0 0;
+  }
+  .note b{font-weight:600;}
+  .note.warn{background:var(--warn-soft);color:var(--warn);}
+
+  .sched{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:6px;}
+  .sched-row{display:flex;padding:11px 18px;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .sched-row:last-child{border-bottom:none;}
+  .sched-row .h{flex:0 0 110px;color:var(--ink-3);font-size:12.5px;}
+  .sched-row .c{flex:1;color:var(--ink-2);}
+
+  .rescue{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 22px;}
+  .resc{padding:15px 0;border-bottom:1px dashed var(--line);}
+  .resc:last-child{border-bottom:none;}
+  .resc h4{font-size:13.5px;font-weight:600;margin-bottom:5px;}
+  .resc p{font-size:13px;color:var(--ink-2);line-height:1.75;}
+
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);}
+
+  @media (max-width:640px){
+    .wrap{padding:28px 14px 60px;}
+    .d-left{flex:0 0 58px;padding:12px 6px;}
+    .d-time{display:none;}
+    .d-how{padding-left:0;}
+    h1{font-size:21px;}
+    .sched-row{flex-direction:column;gap:2px;}
+  }
+  @media print{
+    body{background:#fff;font-size:10pt;}
+    .wrap{max-width:none;padding:0;}
+    .day,.resc{break-inside:avoid;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Daily Execution / Phase 1</div>
+  <h1>每日执行手册</h1>
+  <div class="sub">2026.11.25 — 2027.01.17 · 共 54 天 · 阶段目标：把工具装到手上，跑通第一个能上线的作品</div>
+
+  <div class="bar-wrap">
+    <div class="bar-top"><span>已完成</span><span id="prog">0 / 54</span></div>
+    <div class="bar"><i id="barfill"></i></div>
+  </div>
+
+  <div class="legend">
+    <span><i class="dot core"></i>标红的是当天必做，其他都是加分项</span>
+    <span><i class="dot weekend"></i>左蓝边的时长更长</span>
+    <span>勾选自动保存在本机浏览器</span>
+  </div>
+</header>
+
+<div class="note">
+  <b>每天只有一件事是必须做完的。</b>标红的做完，这天就算合格。没做完的那部分不要补到第二天，直接跳过——追进度是拖延的另一种形式。
+</div>
+
+<h2><span class="num">WEEK 01</span>环境落地</h2>
+<div class="week-goal">本周唯一目标：电脑上能跑出两样东西——一条模型对话、一道 SQL 题。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">11.25</span><span class="d-wk">周三 今天</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w1d1"><span class="t"><span class="must">必做</span>学会启动已经建好的环境，并自检通过</span></div>
+    <div class="d-how"><b>怎么做：</b>环境已经在你电脑上建好了（Python 3.10 + 独立虚拟环境 <code>.venv</code>），不需要装任何东西。<b>双击项目文件夹里的 <code>start_env.bat</code></b>，会弹出一个命令行窗口，前面带 <code>(.venv)</code> 就是激活成功。然后在窗口里输入 <code>python check_env.py</code> 回车，看到「环境就绪」四个字就算完成。<b>以后每次写代码前，第一步都是双击这个文件。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">11.26</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w1d2"><span class="t"><span class="must">必做</span>注册大模型接口，拿到 API Key</span></div>
+    <div class="d-how"><b>怎么做：</b>打开 <code>platform.deepseek.com</code>（不是 chat.deepseek.com，那是聊天页，找不到 Key）。手机号登录会自动注册 → 左侧「个人中心」完成实名 → 左侧「充值」充 <b>10 元</b>（微信支付宝都行，10 元够你这三个月用）→ 左侧「API keys」→ 创建 → <b>立刻复制，只显示一次</b>。复制后打开项目里的 <code>.env.example</code>，改名为 <code>.env</code>，把 Key 粘在等号后面。<b>注意：现役模型叫 <code>deepseek-flash</code>，旧的 <code>deepseek-chat</code> 已在 2026 年 7 月停用，写错会直接报 404。</b></div>
+  </div>
+  <div class="d-time">40min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">11.27</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w1d3"><span class="t"><span class="must">必做</span>跑通对话脚本，做完四个实验</span></div>
+    <div class="d-how"><b>怎么做：</b>脚本 <code>chat.py</code> 已经写好，双击 <code>run_chat.bat</code> 就能对话（<b>不要双击 chat.py</b>，它是代码，Windows 会拿它当程序去运行，一闪就关）。<b>重点不是跑通，是读代码并做实验：</b>① 问三个问题感受交互　② 把 <code>history</code> 里那条 system 内容换成「你是河南省政策研究员，回答必须引用具体文件名」——<b>更简单的做法：双击 <code>edit_prompt.bat</code>，直接改 <code>prompt.txt</code> 里的那句话</b>，保存后重新双击 run_chat.bat，问同一个问题，对比风格变化　③ 输入 <code>/think</code> 切换思考模式，问同一道算术题，对比 token 消耗　④ 问一个它肯定不知道的事（比如「2027 年河南省数字经济规模是多少」），看它会不会编——<b>这是你第一次亲眼看见「幻觉」，第 5 周的 RAG 就是为了修它。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">11.28</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w1d4"><span class="t"><span class="must">必做</span>SQL 入门 1–5 题 + 代码传上 GitHub</span></div>
+    <div class="d-how"><b>怎么做：</b>先双击 <code>run_sql.bat</code> 做本地 5 题——不用注册，写完打一个分号回车就自动判对错，卡住输 <code>hint</code>，忘了表结构输 <code>table</code>。这 5 题就是牛客入门篇的题型。做完再去牛客网 → 题库 → SQL 篇 → 入门篇刷 1–5 题，每题先自己想 15 分钟，卡住才看题解，<b>看完关掉题解默写一遍</b>——这一步不能省。下午 GitHub 建仓库 <code>my-work</code>，网页上传两个 .py 文件。</div>
+  </div>
+  <div class="d-time">3h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">11.29</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w1d5"><span class="t">写第一周复盘，熟悉 Cursor 或 VS Code</span></div>
+    <div class="d-how"><b>怎么做：</b>用 Cursor 或 VS Code 打开项目文件夹（<code>文件 → 打开文件夹</code>），右下角选解释器时选 <code>.venv\Scripts\python.exe</code>，这样编辑器里就能直接运行代码。新建 <code>notes/week1.md</code>，只回答三个问题：这周卡最久的是哪一步、为什么卡、下次怎么绕过去。200 字，不用写得好，写下来就行。</div>
+  </div>
+  <div class="d-time">2h</div>
+</div>
+
+<h2><span class="num">WEEK 02</span>SQL 基础成型</h2>
+<div class="week-goal">本周目标：SQL 能独立写出聚合和多表关联；pandas 能读一份真实数据并回答 3 个问题。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">11.30</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d1"><span class="t"><span class="must">必做</span>SQL 6–8 题：聚合与 group by</span></div>
+    <div class="d-how"><b>怎么做：</b>重点是 <code>count / sum / avg + group by + having</code>。做完口述一遍执行顺序：先 where 过滤行，再 group by 分组，再 having 过滤组。<b>顺序说不清就是没懂。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.01</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d2"><span class="t"><span class="must">必做</span>SQL 9–12 题：多表 join</span></div>
+    <div class="d-how"><b>怎么做：</b>手画两张表，标出 inner join 留下哪几行、left join 多出哪几行。这个区别面试几乎每场都问，必须能举自己的例子说清。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.02</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d3"><span class="t"><span class="must">必做</span>pandas 读一份真实数据</span></div>
+    <div class="d-how"><b>怎么做：</b>别用玩具数据。去 Kaggle 或郑州政务开放平台找，或者用你自己的淘宝订单、外卖记录导出。跑这四个：<code>df.shape</code>、<code>df.head()</code>、<code>df.info()</code>、<code>df.describe()</code>，把结果截图存下来。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.03</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d4"><span class="t">pandas 筛选、排序、取值</span></div>
+    <div class="d-how"><b>怎么做：</b><code>df[df['列'] &gt; 值]</code>、<code>df.sort_values()</code>、<code>df.loc[]</code>。用同一份数据回答三个问题，例如「哪个区均价最高」「今年哪个月销量最差」。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.04</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d5"><span class="t"><span class="must">必做</span>SQL 13–16 题：三表关联</span></div>
+    <div class="d-how"><b>怎么做：</b>三表关联是笔试常客。做错的重做一遍，直到不看题解能写出来。这一步别图快。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.05</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d6"><span class="t"><span class="must">必做</span>完整清洗一份脏数据</span></div>
+    <div class="d-how"><b>怎么做：</b>四步走：① 统计每列缺失率 <code>df.isnull().mean()</code> ② 缺失超过一半的列直接删，其余填均值或众数 ③ 转换类型（日期、数字）④ 输出干净的 csv。<b>这步练的是耐心，不是技巧。</b></div>
+  </div>
+  <div class="d-time">3h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.06</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w2d7"><span class="t">复盘 + 本周代码提交</span></div>
+    <div class="d-how"><b>怎么做：</b>把本周所有 .py 和笔记推到 GitHub。commit 信息写清做了什么，别写 "update"。以后的你会感谢现在写清楚的你。</div>
+  </div>
+  <div class="d-time">2h</div>
+</div>
+
+<h2><span class="num">WEEK 03</span>窗口函数与透视</h2>
+<div class="week-goal">本周目标：能写出「分组取前 N」这类题；能用 pandas 复现 SQL 的聚合逻辑。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.07</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d1"><span class="t"><span class="must">必做</span>搞清 row_number / rank / dense_rank 的区别</span></div>
+    <div class="d-how"><b>怎么做：</b>用同一份数据分别跑三个函数，把结果截图并排放。要能一句话说清：遇到并列时，row_number 跳着排、rank 跳号、dense_rank 不跳号。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.08</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d2"><span class="t"><span class="must">必做</span>窗口函数练习 3 题：分组取 TopN</span></div>
+    <div class="d-how"><b>怎么做：</b>背一个模板：<code>row_number() over(partition by 分组列 order by 排序列 desc)</code>，外面套一层子查询筛 <code>rn &lt;= 3</code>。这类题在笔试里出现频率极高。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.09</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d3"><span class="t">把上周的 SQL 聚合题用 pandas 重写一遍</span></div>
+    <div class="d-how"><b>怎么做：</b><code>df.groupby('列').agg({'值':'sum'})</code>、<code>pd.pivot_table</code>。两种工具做同一件事，你会发现它们是一一对应的，感觉到了就通了。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.10</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d4"><span class="t">pandas merge：左连接和内连接</span></div>
+    <div class="d-how"><b>怎么做：</b><code>pd.merge(a, b, on='key', how='left')</code>，how 换成 inner 再跑一次。<b>重点看行数怎么变的</b>，行数不变说明有重复键，这是个隐藏坑。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.11</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d5"><span class="t">出三张图：柱状、折线、散点</span></div>
+    <div class="d-how"><b>怎么做：</b>中文显示成方块就加 <code>plt.rcParams['font.sans-serif'] = ['SimHei']</code>。图要有标题、坐标轴标签、单位。<b>没有标注的图等于没画。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.12</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d6"><span class="t"><span class="must">必做</span>小项目：一份数据出三张图 + 三句结论</span></div>
+    <div class="d-how"><b>怎么做：</b>用第 2 周那份数据，提三个业务问题，一个问题一张图一句结论文本。存成 <code>analysis.py</code>，跑一次能直接出结果。<b>这已经是一个可以放进简历的东西了。</b></div>
+  </div>
+  <div class="d-time">3h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.13</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w3d7"><span class="t">复盘，确认 SQL 进度过半</span></div>
+    <div class="d-how"><b>怎么做：</b>数一下刷了多少题。到 40 题算达标。没到就用下周零碎时间补，不要专门开一整块时间。</div>
+  </div>
+  <div class="d-time">2h</div>
+</div>
+
+<h2><span class="num">WEEK 04</span>看懂大模型 + 找数据源</h2>
+<div class="week-goal">本周目标：理解 token、embedding、结构化输出；把作品的原料备齐。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.14</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d1"><span class="t"><span class="must">必做</span>搞懂 token、上下文窗口、temperature</span></div>
+    <div class="d-how"><b>怎么做：</b>只读官方文档两页：「模型」和「计费」。用自己的脚本跑一段长文本，看返回的 <code>usage</code> 里 token 数是多少。<b>把这个数字记进笔记，面试问成本时要用。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.15</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d2"><span class="t">让模型稳定输出 JSON</span></div>
+    <div class="d-how"><b>怎么做：</b>system 里写「只输出 JSON，不要任何解释文字」，temperature 设 0，用 <code>json.loads</code> 解析。解析失败就重试一次——这就是最原始的「兜底」。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.16</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d3"><span class="t"><span class="must">必做</span>亲手算一次向量相似度</span></div>
+    <div class="d-how"><b>怎么做：</b>调 embedding 接口把两句话变成向量，用 numpy 算余弦相似度。试三组句子：「银行存款利率」「存款利息多少」应该分数高；「今天天气」应该分数低。<b>看到数字那一刻，RAG 就懂一半了。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.17</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d4"><span class="t"><span class="must">必做</span>列数据源清单，15 份以上</span></div>
+    <div class="d-how"><b>怎么做：</b>搜这几组词：「河南省 数字经济 政策」「郑州市 数字化转型 实施方案」「河南省 数据要素 三年行动」「河南 数字政府 规划」。列成表：文件名、发布单位、年份、链接。<b>优先选省政府、省发改委、省工信厅的正式文件。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.18</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d5"><span class="t">下载整理，统一命名</span></div>
+    <div class="d-how"><b>怎么做：</b>全部存成 PDF 或 HTML，放 <code>data/raw/</code>。命名格式 <code>年份_发布单位_标题</code>。<b>现在偷的懒，后面全要还。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.19</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d6"><span class="t"><span class="must">必做</span>文件转文本并按 500 字切块</span></div>
+    <div class="d-how"><b>怎么做：</b><code>pip install pypdf</code>，遍历 PDF 抽文本。按 500 字一块、块间重叠 50 字切分，存成 json（每条含 text 和 source）。<b>切完随便抽 5 条看看，有没有把一句话拦腰截断。</b></div>
+  </div>
+  <div class="d-time">3h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.20</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w4d7"><span class="t"><span class="must">必做</span>写 300 字作品说明</span></div>
+    <div class="d-how"><b>怎么做：</b>回答三个问题：解决谁的什么问题、为什么现有的搜索/客服解决不了、你打算怎么做。这段文字后面直接进 README，现在写好能省一遍工。</div>
+  </div>
+  <div class="d-time">2h</div>
+</div>
+
+<h2><span class="num">WEEK 05</span>RAG 核心链路跑通</h2>
+<div class="week-goal">本周目标：输入一个问题，系统能从我准备的材料里找到答案。这是整个作品最难的一周。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.21</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d1"><span class="t"><span class="must">必做</span>文本入库</span></div>
+    <div class="d-how"><b>怎么做：</b><code>pip install chromadb</code>。建一个 collection，把上周的 chunk 逐条 <code>add</code>，id 用序号，metadata 存来源文件名。跑完 <code>collection.count()</code>，数字要和你切出来的条数一致——不一致就是漏了。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.22</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d2"><span class="t"><span class="must">必做</span>写检索函数，人工验 5 个问题</span></div>
+    <div class="d-how"><b>怎么做：</b>问题 → embedding → <code>collection.query(n_results=5)</code> → 打印命中的原文。测 5 个你确定答案就在材料里的问题，<b>人工看检索到的段落相不相关</b>。不相关就说明这一步有问题，先别接生成。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.23</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d3"><span class="t"><span class="must">必做</span>接上生成，让模型基于材料回答</span></div>
+    <div class="d-how"><b>怎么做：</b>prompt 里必须写这三句：「只依据以下材料回答」「材料里没有就说不知道」「回答末尾标注来源文件名」。<b>不加第三句，你就没法判断它是真读到还是编的。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.24</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d4"><span class="t">对比三个版本的 prompt</span></div>
+    <div class="d-how"><b>怎么做：</b>只改 prompt，问同样的 5 个问题，记录哪个版本幻觉最少、哪个版本回答最有条理。把你看到的差异写进笔记——<b>这就是面试时「你怎么调 prompt」的答案。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.25</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d5"><span class="t"><span class="must">必做</span>测 10 个问题，建错误记录表</span></div>
+    <div class="d-how"><b>怎么做：</b>建一张表四列：问题、回答、对不对、错在哪。这张表现在只是草稿，第 7 周会扩成评测集，<b>它最后会变成你简历上最硬的一个数字。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.26</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d6"><span class="t"><span class="must">必做</span>把错的都修一遍</span></div>
+    <div class="d-how"><b>怎么做：</b>错因基本三类：① 检索没召回 → 调块大小，或加关键词检索做混合 ② 召回了但没用上 → 改 prompt，明说「必须引用材料原句」 ③ 材料里真的没有 → 补数据。<b>先分类再修，别乱试。</b></div>
+  </div>
+  <div class="d-time">3h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">12.27</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w5d7"><span class="t">复盘：记下准确率的变化</span></div>
+    <div class="d-how"><b>怎么做：</b>写下修复前后的正确题数，比如「从 10 题对 6 题变成 10 题对 8 题」。这个前后对比，比任何自我评价都有说服力。</div>
+  </div>
+  <div class="d-time">2h</div>
+</div>
+
+<h2><span class="num">WEEK 06</span>做界面，上线</h2>
+<div class="week-goal">本周目标：拿到一个公网能打开的链接。没有链接的作品，在面试官眼里等于不存在。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.28</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d1"><span class="t"><span class="must">必做</span>Streamlit 入门</span></div>
+    <div class="d-how"><b>怎么做：</b><code>pip install streamlit</code>。写 15 行：<code>st.title</code>、<code>st.text_input</code>、<code>st.write</code>，然后 <code>streamlit run app.py</code> 浏览器自动打开。<b>半小时能上手，别去看长视频教程。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.29</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d2"><span class="t"><span class="must">必做</span>做出正式界面</span></div>
+    <div class="d-how"><b>怎么做：</b>输入框 + 按钮 + 回答区 + 来源展示 + 一行说明「本工具只回答河南省数字经济相关政策」。<b>一定要加 <code>@st.cache_resource</code> 缓存向量库</b>，否则每次操作都重新加载，慢到没法用。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.30</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d3"><span class="t">在干净环境里验证一次</span></div>
+    <div class="d-how"><b>怎么做：</b>把所有依赖写进 <code>requirements.txt</code>。关掉终端重开，只用一条命令启动。跑不通就是有隐藏依赖，现在修比上线后修省事。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">12.31</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d4"><span class="t"><span class="must">必做</span>部署上线</span></div>
+    <div class="d-how"><b>怎么做：</b>代码推到 GitHub（Key 放进 <code>.gitignore</code>，用 <code>st.secrets</code> 读）→ 打开 share.streamlit.io → GitHub 登录 → New app → 选仓库和入口文件 → Deploy。<b>等待 5 分钟，拿到 xxx.streamlit.app 的链接。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.01</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d5"><span class="t">休息日，只看一眼线上是否正常</span></div>
+    <div class="d-how"><b>怎么做：</b>手机打开链接点两下，能问能答就够了。今天不写代码。<b>连续六周不休息的人，第七周会崩。</b></div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">01.02</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d6"><span class="t"><span class="must">必做</span>找 3 个同学试用，记录原话</span></div>
+    <div class="d-how"><b>怎么做：</b>把链接发过去，<b>一个字都不要解释</b>，在旁边看他们先点哪里、问什么、在哪愣住。把他们说的原话记下来，不要加工。<b>这是你第一次做产品，别浪费这个观察机会。</b></div>
+  </div>
+  <div class="d-time">3h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">01.03</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w6d7"><span class="t">按反馈改一轮，重新部署</span></div>
+    <div class="d-how"><b>怎么做：</b>只挑反馈里出现两次以上的问题改。只出现一次的，记下来但不改——<b>你的时间不够满足所有人。</b></div>
+  </div>
+  <div class="d-time">2h</div>
+</div>
+
+<h2><span class="num">WEEK 07</span>做评测，写文档</h2>
+<div class="week-goal">本周目标：把作品变成「可以讲」的作品。有了数字和文档，它才进得了简历。</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.04</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d1"><span class="t"><span class="must">必做</span>建 30 条评测集</span></div>
+    <div class="d-how"><b>怎么做：</b>20 条能从材料里找到答案的 + 10 条材料里确实没有的（专门测它会不会瞎编）。写成 csv 三列：问题、标准答案、类型。<b>那 10 条是整份评测的灵魂。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.05</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d2"><span class="t"><span class="must">必做</span>跑评测，算出准确率</span></div>
+    <div class="d-how"><b>怎么做：</b>循环跑完 30 条，人工判对错，算百分比。分开算两个数：能答对的准确率、该说不知道时真的说了不知道的比例。<b>这两个数字记住，面试一定会被追问。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.06</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d3"><span class="t"><span class="must">必做</span>写 README</span></div>
+    <div class="d-how"><b>怎么做：</b>四段，缺一不可：① 解决什么问题（用第 4 周那 300 字）② 怎么用（放一张截图）③ 技术方案（画一张流程图：文档 → 切分 → 向量库 → 检索 → 大模型 → 回答）④ 效果与局限（准确率数字 + 它答不好什么）。</div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.07</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d4"><span class="t">录 2 分钟演示视频</span></div>
+    <div class="d-how"><b>怎么做：</b>屏幕录制，按这个顺序讲：给谁用 → 解决什么问题 → 现场演示一次 → 效果数字。<b>不要念稿，像跟同学解释一样说。</b></div>
+  </div>
+  <div class="d-time">60min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.08</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d5"><span class="t">转入期末复习，作品只做维护</span></div>
+    <div class="d-how"><b>怎么做：</b>从今天起每天最多 30 分钟碰项目。<b>考试挂科的代价，远大于作品少一个功能。</b></div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">01.09</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d6"><span class="t">复习为主，顺手修一个明显 bug</span></div>
+    <div class="d-how"><b>怎么做：</b>只在复习休息的间隙点开链接用一次，发现明显问题就改，别主动找活。</div>
+  </div>
+  <div class="d-time">1h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">01.10</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w7d7"><span class="t">复习</span></div>
+    <div class="d-how"><b>怎么做：</b>项目今天不碰。这周唯一的任务是不挂科。</div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<h2><span class="num">WEEK 08</span>期末周</h2>
+<div class="week-goal">唯一任务：所有科目通过。项目进入待机，每天上限 30 分钟。</div>
+
+<div class="note warn">
+  <b>这一周不要有负罪感。</b>每天只做一件事：提交一次代码，或看 5 分钟行业资讯。剩下的时间全部给考试。寒假 6 周才是真正能拉开差距的地方。
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.11</span><span class="d-wk">周一</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d1"><span class="t">考试 + 项目待机</span></div>
+    <div class="d-how"><b>怎么做：</b>考前只复习。考完如果还有精力，打开链接点一下确认没挂。</div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.12</span><span class="d-wk">周二</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d2"><span class="t">考试 + 项目待机</span></div>
+    <div class="d-how"><b>怎么做：</b>同上。这天可以顺手把 GitHub 仓库的 About 填上，一行描述加一个链接，两分钟的事。</div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.13</span><span class="d-wk">周三</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d3"><span class="t">考试 + 项目待机</span></div>
+    <div class="d-how"><b>怎么做：</b>练一句话自我介绍：「数字经济专业，做过一个基于本地政策文件的问答工具，准确率 xx%。」背下来，寒假面试和社交都用得上。</div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.14</span><span class="d-wk">周四</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d4"><span class="t">考试</span></div>
+    <div class="d-how"><b>怎么做：</b>不碰项目。</div>
+  </div>
+  <div class="d-time">—</div>
+</div>
+
+<div class="day">
+  <div class="d-left"><span class="d-num">01.15</span><span class="d-wk">周五</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d5"><span class="t">考试结束，写阶段复盘</span></div>
+    <div class="d-how"><b>怎么做：</b>考完当天，写 500 字：八周里哪周效率最高、为什么；哪周几乎没动、为什么。<b>这份复盘直接决定寒假 6 周的计划要不要改。</b></div>
+  </div>
+  <div class="d-time">1h</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">01.16</span><span class="d-wk">周六</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d6"><span class="t">回家，只做一件事：备份</span></div>
+    <div class="d-how"><b>怎么做：</b>把整个项目文件夹打包，GitHub 再推一次。<b>换电脑不备份，是最常见也最蠢的翻车方式。</b></div>
+  </div>
+  <div class="d-time">30min</div>
+</div>
+
+<div class="day wkend">
+  <div class="d-left"><span class="d-num">01.17</span><span class="d-wk">周日</span></div>
+  <div class="d-body">
+    <div class="d-task"><input type="checkbox" data-k="w8d7"><span class="t">休息，准备寒假开工</span></div>
+    <div class="d-how"><b>怎么做：</b>什么都不做。第二天开始每天 4 小时的寒假节奏，先养足精神。</div>
+  </div>
+  <div class="d-time">—</div>
+</div>
+
+<h2><span class="num">NEXT</span>寒假怎么过（1.18 起）</h2>
+<div class="week-goal">这 6 周没有课，是全年唯一能连续投入的时间。用固定的日程模板，不要每天重新决定。</div>
+
+<div class="sched">
+  <div class="sched-row"><div class="h">09:00 — 11:00</div><div class="c">写代码。只写不看教程，卡住先自己试 20 分钟</div></div>
+  <div class="sched-row"><div class="h">11:00 — 11:30</div><div class="c">仍卡住就查文档；文档没有就贴报错问 AI，要求给完整可运行代码</div></div>
+  <div class="sched-row"><div class="h">14:00 — 16:00</div><div class="c">调 bug、学新东西、补文档。这段最难，也最出活</div></div>
+  <div class="sched-row"><div class="h">16:00 — 16:30</div><div class="c">提交代码，写三行日志：今天做完什么、卡在哪、明天第一件事</div></div>
+  <div class="sched-row"><div class="h">晚上</div><div class="c">不碰代码。连续六周不休息的人，第七周会崩</div></div>
+</div>
+
+<div class="note">
+  <b>六周主题：</b>W1 加混合检索把准确率再提一档　W2 材料扩到 50 份并重跑评测　W3 开始作品二，爬 100 条以上郑州 AI 岗位 JD　W4 做技能词频、薪资分布、学历门槛分析　W5 把作品二写成一页可访问的报告并部署　W6 写简历第一版，整理个人主页
+</div>
+
+<h2><span class="num">RESCUE</span>卡住了怎么办</h2>
+
+<div class="rescue">
+  <div class="resc">
+    <h4>报错看不懂</h4>
+    <p>把整段红字原文复制给 AI，开头加一句「我是初学者，不要只解释，直接给我改好的完整代码」。不要自己猜，猜错一次要花半小时。</p>
+  </div>
+  <div class="resc">
+    <h4>一个 bug 卡超过 40 分钟</h4>
+    <p>立刻停手，在笔记里记一行「什么问题、试过什么」，然后跳到今天任务的下一部分。<b>周日统一处理。</b>卡着不动是最消耗信心的事。</p>
+  </div>
+  <div class="resc">
+    <h4>连续三天没动手</h4>
+    <p>不要责怪自己，是任务颗粒度太大了。把当天任务砍到 15 分钟能做完的版本，比如「只装一个包」「只改一行 prompt」。<b>先恢复手感，再恢复速度。</b></p>
+  </div>
+  <div class="resc">
+    <h4>今天只有 20 分钟</h4>
+    <p>只做一件事：牛客刷 1 道 SQL 题，或打开项目跑一次确认还能用。<b>保持连续比保持强度重要。</b></p>
+  </div>
+  <div class="resc">
+    <h4>进度落后一周以上</h4>
+    <p>砍内容，不要延时间。优先级：RAG 跑通 &gt; 上线有链接 &gt; 评测数字 &gt; 界面漂亮 &gt; SQL 刷题量。只保留前两项也能进面试。</p>
+  </div>
+</div>
+
+<footer>
+  2026 年 11 月 25 日制定 · 阶段一：2026.11.25 — 2027.01.17 · 下一份手册在 1 月中旬按实际进度重排
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var boxes = document.querySelectorAll('.d-task input[type=checkbox]');
+  var total = boxes.length, done = 0;
+  function sync(){
+    done = 0;
+    boxes.forEach(function(b){ if(b.checked) done++; });
+    var p = document.getElementById('prog');
+    var f = document.getElementById('barfill');
+    if(p) p.textContent = done + ' / ' + total;
+    if(f) f.style.width = (total ? (done/total*100) : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    var key = 'daily_' + b.dataset.k;
+    try{ if(localStorage.getItem(key) === '1') b.checked = true; }catch(e){}
+    b.addEventListener('change', function(){
+      try{ localStorage.setItem(key, b.checked ? '1' : '0'); }catch(e){}
+      sync();
+    });
+  });
+  sync();
+})();
+
+(function(){
+  var d = new Date();
+  var rows = document.querySelectorAll('.d-num');
+  var map = {'11.25':'','11.26':'','11.27':'','11.28':'','11.29':'','11.30':'',
+             '12.01':'','12.02':'','12.03':'','12.04':'','12.05':'','12.06':'',
+             '12.07':'','12.08':'','12.09':'','12.10':'','12.11':'','12.12':'',
+             '12.13':'','12.14':'','12.15':'','12.16':'','12.17':'','12.18':'',
+             '12.19':'','12.20':'','12.21':'','12.22':'','12.23':'','12.24':'',
+             '12.25':'','12.26':'','12.27':'','12.28':'','12.29':'','12.30':'','12.31':'',
+             '01.01':'','01.02':'','01.03':'','01.04':'','01.05':'','01.06':'','01.07':'',
+             '01.08':'','01.09':'','01.10':'','01.11':'','01.12':'','01.13':'','01.14':'',
+             '01.15':'','01.16':'','01.17':''};
+  var todayKey = String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
+  rows.forEach(function(el){
+    if(el.textContent.trim() === todayKey){
+      var card = el.closest('.day');
+      if(card && !card.querySelector('.today-mark')){
+        card.style.boxShadow = '0 0 0 2px #b04a2f';
+        var m = document.createElement('span');
+        m.className = 'today-mark';
+        m.style.cssText = 'font-size:10px;color:#fff;background:#b04a2f;padding:1px 6px;border-radius:3px;margin-left:4px;display:inline-block;';
+        m.textContent = '今天';
+        el.appendChild(m);
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# 虚拟环境
+.venv/
+venv/
+
+# 密钥，绝对不能提交
+.env
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# 数据文件（太大，只保留整理后的）
+data/raw/
+*.pdf
+*.zip
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 生成的临时文件
+_font_test.png
+*.log
+
+# SQL 练习的进度存档（本机状态，不用上传）
+.progress_sql1.json
+.progress_sql2.json
+
+# 安装包等临时目录
+_downloads/
+repo/
+
+# 工作目录内部笔记，不上传
+.workbuddy/
